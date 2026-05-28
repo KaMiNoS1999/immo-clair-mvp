@@ -1,0 +1,8 @@
+.next
+node_modules
+.npm-cache
+.tools
+.next-swc-cache
+coverage
+*.log
+tsconfig.tsbuildinfo
