@@ -1,10 +1,12 @@
 import { Building2, Mail, MapPin } from "lucide-react";
 import { AppShell } from "@/components/app-shell";
 import { PropertyForm } from "@/components/property-form";
+import { requireUserOrDemo } from "@/lib/auth";
 import { getProperties } from "@/lib/data";
 import { formatCurrency } from "@/lib/format";
 
 export default async function PropertiesPage() {
+  await requireUserOrDemo();
   const properties = await getProperties();
 
   return (

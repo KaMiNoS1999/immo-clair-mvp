@@ -2,10 +2,12 @@ import { FileText } from "lucide-react";
 import { AppShell } from "@/components/app-shell";
 import { StatusPill } from "@/components/status-pill";
 import { UploadPanel } from "@/components/upload-panel";
+import { requireUserOrDemo } from "@/lib/auth";
 import { getDocuments } from "@/lib/data";
 import { formatCurrency, formatDate } from "@/lib/format";
 
 export default async function DocumentsPage() {
+  await requireUserOrDemo();
   const documents = await getDocuments();
 
   return (
