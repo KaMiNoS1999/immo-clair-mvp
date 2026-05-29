@@ -1,9 +1,11 @@
 import { Download, PieChart } from "lucide-react";
 import { AppShell } from "@/components/app-shell";
+import { requireUserOrDemo } from "@/lib/auth";
 import { getTransactions } from "@/lib/data";
 import { formatCurrency } from "@/lib/format";
 
 export default async function AccountingPage() {
+  await requireUserOrDemo();
   const transactions = await getTransactions();
   const income = transactions.filter((item) => item.kind === "revenu").reduce((sum, item) => sum + Math.abs(item.amount), 0);
   const expenses = transactions.filter((item) => item.kind === "depense").reduce((sum, item) => sum + Math.abs(item.amount), 0);

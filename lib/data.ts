@@ -41,6 +41,24 @@ export async function getDocuments(): Promise<DocumentItem[]> {
   return (data ?? []) as DocumentItem[];
 }
 
+export async function getRentPayments(): Promise<RentPayment[]> {
+  const userId = await getUserId();
+  if (!userId) return demoRentPayments;
+
+  const supabase = createServerSupabaseClient();
+  const { data } = await supabase.from("rent_payments").select("*").order("month", { ascending: false }).limit(100);
+  return (data ?? []) as RentPayment[];
+}
+
+export async function getInvoices(): Promise<Invoice[]> {
+  const userId = await getUserId();
+  if (!userId) return demoInvoices;
+
+  const supabase = createServerSupabaseClient();
+  const { data } = await supabase.from("invoices").select("*").neq("status", "archivee").order("due_on", { ascending: true }).limit(100);
+  return (data ?? []) as Invoice[];
+}
+
 export async function getDashboardData() {
   const userId = await getUserId();
   if (!userId) {

@@ -1,9 +1,11 @@
 import { AppShell } from "@/components/app-shell";
 import { StatusPill } from "@/components/status-pill";
+import { requireUserOrDemo } from "@/lib/auth";
 import { getProperties, getTransactions } from "@/lib/data";
 import { formatCurrency, formatDate } from "@/lib/format";
 
 export default async function TransactionsPage() {
+  await requireUserOrDemo();
   const [transactions, properties] = await Promise.all([getTransactions(), getProperties()]);
   const propertyById = new Map(properties.map((property) => [property.id, property.name]));
 

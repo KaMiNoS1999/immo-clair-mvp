@@ -50,8 +50,8 @@ export const demoDocuments: DocumentItem[] = [
 ];
 
 export const demoInsights: AiInsight[] = [
-  { id: "a-1", title: "Un loyer semble manquant", severity: "critical", body: "Le loyer de la Maison Waterloo n’apparaît pas dans les paiements reçus de mai.", action_label: "Voir les loyers", action_href: "/transactions" },
-  { id: "a-2", title: "Dépense importante détectée", severity: "warning", body: "Le précompte immobilier de 620 € a été classé en taxes. Vérifiez le bien concerné.", action_label: "Contrôler", action_href: "/transactions" },
+  { id: "a-1", title: "Un loyer semble manquant", severity: "critical", body: "Le loyer de la Maison Waterloo n’apparaît pas dans les paiements reçus de mai.", action_label: "Voir les loyers", action_href: "/loyers" },
+  { id: "a-2", title: "Dépense importante détectée", severity: "warning", body: "Le précompte immobilier de 620 € a été classé en taxes. Vérifiez le bien concerné.", action_label: "Contrôler", action_href: "/charges" },
   { id: "a-3", title: "Document à terminer", severity: "info", body: "La facture d’assurance est analysée, mais elle doit encore être validée.", action_label: "Documents", action_href: "/documents" }
 ];
 

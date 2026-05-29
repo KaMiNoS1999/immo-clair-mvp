@@ -1,5 +1,6 @@
 import { Mail, RefreshCw } from "lucide-react";
 import { AppShell } from "@/components/app-shell";
+import { requireUserOrDemo } from "@/lib/auth";
 
 const demoMails = [
   {
@@ -16,7 +17,9 @@ const demoMails = [
   }
 ];
 
-export default function MailsPage() {
+export default async function MailsPage() {
+  await requireUserOrDemo();
+
   return (
     <AppShell title="Mails administratifs" subtitle="Connexion Gmail pour détecter automatiquement factures, rappels et échéances.">
       <section className="rounded-lg border border-line bg-white p-5 shadow-soft">
