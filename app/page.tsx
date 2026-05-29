@@ -1,98 +1,59 @@
 import Link from "next/link";
-import { AlertTriangle, ArrowRight, Building2, FileText, Mail, ReceiptText, WalletCards } from "lucide-react";
-import { AppShell } from "@/components/app-shell";
-import { MetricCard } from "@/components/metric-card";
-import { StatusPill } from "@/components/status-pill";
-import { UploadPanel } from "@/components/upload-panel";
-import { getDashboardData } from "@/lib/data";
-import { formatCurrency, formatDate } from "@/lib/format";
+import { ArrowRight, FileUp, Home, Landmark, ReceiptText } from "lucide-react";
+import { GoogleLoginButton } from "@/components/google-login-button";
 
-export default async function DashboardPage() {
-  const data = await getDashboardData();
+const firstActions = [
+  { label: "Ajouter un relevé bancaire", icon: Landmark },
+  { label: "Ajouter une facture", icon: FileUp },
+  { label: "Voir les retards", icon: ReceiptText }
+];
 
+export default function HomePage() {
   return (
-    <AppShell title="Tableau de bord" subtitle="Une vue claire de vos loyers, factures et documents.">
-      <section className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
-        <MetricCard label="Revenus du mois" value={formatCurrency(data.monthlyIncome)} icon={WalletCards} tone="green" />
-        <MetricCard label="Dépenses du mois" value={formatCurrency(data.monthlyExpenses)} icon={ReceiptText} tone="amber" />
-        <MetricCard label="Loyers reçus" value={`${data.receivedRents}/${data.expectedRents}`} icon={Building2} tone="green" />
-        <MetricCard label="Paiements en retard" value={String(data.latePayments)} icon={AlertTriangle} tone="red" />
-      </section>
+    <main className="min-h-screen bg-cloud px-4 py-8 text-ink sm:px-6">
+      <section className="mx-auto flex min-h-[calc(100vh-4rem)] max-w-6xl flex-col justify-center gap-10">
+        <div className="flex items-center gap-3">
+          <span className="grid h-12 w-12 place-items-center rounded-lg bg-pine text-white">
+            <Home size={24} />
+          </span>
+          <span>
+            <span className="block text-lg font-bold">Immo Clair</span>
+            <span className="block text-sm text-ink/60">Vos loyers et factures au même endroit</span>
+          </span>
+        </div>
 
-      <section className="grid gap-5 xl:grid-cols-[1.25fr_0.75fr]">
-        <div className="rounded-lg border border-line bg-white p-5 shadow-soft">
-          <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-            <div>
-              <h2 className="text-xl font-semibold text-ink">Priorités</h2>
-              <p className="mt-1 text-sm text-ink/60">Ce qui mérite votre attention aujourd’hui.</p>
+        <div className="grid gap-8 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
+          <div>
+            <h1 className="max-w-3xl text-4xl font-bold tracking-normal text-ink sm:text-6xl">
+              Une gestion immobilière claire, sans Excel et sans papiers partout.
+            </h1>
+            <p className="mt-5 max-w-2xl text-lg leading-8 text-ink/68">
+              Connectez-vous, ajoutez vos documents, puis laissez l’application vous montrer les loyers reçus, les retards et les factures importantes.
+            </p>
+            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+              <GoogleLoginButton className="w-full sm:w-auto" />
+              <Link href="/dashboard" className="focus-ring inline-flex min-h-14 items-center justify-center gap-2 rounded-lg border border-line bg-white px-6 text-base font-bold text-ink">
+                Ouvrir le tableau de bord
+                <ArrowRight size={20} />
+              </Link>
             </div>
-            <Link href="/assistant" className="focus-ring inline-flex min-h-12 items-center justify-center gap-2 rounded-lg bg-pine px-4 text-sm font-semibold text-white">
-              Voir l’assistant <ArrowRight size={18} />
-            </Link>
           </div>
 
-          <div className="mt-5 space-y-3">
-            {data.insights.map((item) => (
-              <article key={item.id} className="rounded-lg border border-line bg-cloud p-4">
-                <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
-                  <div>
-                    <div className="flex flex-wrap items-center gap-2">
-                      <h3 className="font-semibold text-ink">{item.title}</h3>
-                      <StatusPill status={item.severity} />
-                    </div>
-                    <p className="mt-2 text-sm leading-6 text-ink/70">{item.body}</p>
-                  </div>
-                  {item.action_href && item.action_label ? (
-                    <Link href={item.action_href} className="text-sm font-semibold text-pine">
-                      {item.action_label}
-                    </Link>
-                  ) : null}
+          <div className="rounded-lg border border-line bg-white p-5 shadow-soft">
+            <h2 className="text-xl font-bold text-ink">Les 3 actions importantes</h2>
+            <div className="mt-5 space-y-3">
+              {firstActions.map((action) => (
+                <div key={action.label} className="flex items-center gap-3 rounded-lg bg-cloud p-4">
+                  <span className="grid h-11 w-11 shrink-0 place-items-center rounded-lg bg-mint text-pine">
+                    <action.icon size={21} />
+                  </span>
+                  <span className="font-bold text-ink">{action.label}</span>
                 </div>
-              </article>
-            ))}
-          </div>
-        </div>
-
-        <UploadPanel />
-      </section>
-
-      <section className="grid gap-5 lg:grid-cols-2">
-        <div className="rounded-lg border border-line bg-white p-5 shadow-soft">
-          <div className="flex items-center justify-between gap-4">
-            <h2 className="text-xl font-semibold text-ink">Factures à payer</h2>
-            <FileText className="text-sage" />
-          </div>
-          <div className="mt-4 divide-y divide-line">
-            {data.invoices.map((invoice) => (
-              <div key={invoice.id} className="flex items-center justify-between gap-4 py-4">
-                <div>
-                  <p className="font-medium text-ink">{invoice.company}</p>
-                  <p className="text-sm text-ink/60">Échéance: {formatDate(invoice.due_on)}</p>
-                </div>
-                <div className="text-right">
-                  <p className="font-semibold text-ink">{formatCurrency(invoice.amount)}</p>
-                  <StatusPill status={invoice.status} />
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        <div className="rounded-lg border border-line bg-white p-5 shadow-soft">
-          <div className="flex items-center justify-between gap-4">
-            <h2 className="text-xl font-semibold text-ink">Mails administratifs</h2>
-            <Mail className="text-sage" />
-          </div>
-          <div className="mt-4 space-y-3">
-            {data.mailSummaries.map((mail) => (
-              <div key={mail.id} className="rounded-lg border border-line p-4">
-                <p className="font-medium text-ink">{mail.subject}</p>
-                <p className="mt-1 text-sm leading-6 text-ink/65">{mail.ai_summary}</p>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
         </div>
       </section>
-    </AppShell>
+    </main>
   );
 }
