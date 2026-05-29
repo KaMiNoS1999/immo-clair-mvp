@@ -20,15 +20,15 @@ export function UploadPanel() {
 
   return (
     <div className="rounded-lg border border-line bg-white p-5 shadow-soft">
-      <h2 className="text-xl font-semibold text-ink">Ajouter automatiquement</h2>
-      <p className="mt-1 text-sm leading-6 text-ink/60">Déposez un relevé bancaire, une facture ou une photo. L’application classe les informations importantes.</p>
+      <h2 className="text-2xl font-bold text-ink">Ajouter un document</h2>
+      <p className="mt-1 text-sm leading-6 text-ink/60">Choisissez un relevé, une facture ou une photo. L’application enregistre les informations utiles.</p>
 
       <div className="mt-5 grid gap-3">
-        <label className="focus-within:ring-4 focus-within:ring-mint flex cursor-pointer items-center gap-3 rounded-lg border border-dashed border-sage bg-cloud p-4">
+        <label id="releve-bancaire" className="focus-within:ring-4 focus-within:ring-mint flex cursor-pointer items-center gap-3 rounded-lg border border-dashed border-sage bg-cloud p-4">
           <Landmark className="text-pine" />
           <span>
-            <span className="block font-semibold text-ink">Importer un relevé bancaire</span>
-            <span className="block text-sm text-ink/55">CSV maintenant, PDF prêt pour l’analyse IA.</span>
+            <span className="block font-bold text-ink">Ajouter un relevé bancaire</span>
+            <span className="block text-sm text-ink/55">CSV ou PDF.</span>
           </span>
           <input
             type="file"
@@ -41,11 +41,11 @@ export function UploadPanel() {
           />
         </label>
 
-        <label className="focus-within:ring-4 focus-within:ring-mint flex cursor-pointer items-center gap-3 rounded-lg border border-dashed border-sage bg-cloud p-4">
+        <label id="facture" className="focus-within:ring-4 focus-within:ring-mint flex cursor-pointer items-center gap-3 rounded-lg border border-dashed border-sage bg-cloud p-4">
           <FileUp className="text-pine" />
           <span>
-            <span className="block font-semibold text-ink">Importer une facture</span>
-            <span className="block text-sm text-ink/55">PDF ou image, extraction du montant et de la date.</span>
+            <span className="block font-bold text-ink">Ajouter une facture</span>
+            <span className="block text-sm text-ink/55">PDF ou image.</span>
           </span>
           <input
             type="file"

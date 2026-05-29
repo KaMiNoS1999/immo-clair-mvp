@@ -1,15 +1,15 @@
 import Link from "next/link";
-import { Building2, Calculator, FileText, Home, LayoutDashboard, Mail, ReceiptText, Sparkles } from "lucide-react";
+import { Building2, FileText, Home, LayoutDashboard, Receipt, ReceiptText, Sparkles, Users } from "lucide-react";
 import { AuthButton } from "@/components/auth-button";
 
 const navItems = [
-  { href: "/", label: "Dashboard", icon: LayoutDashboard },
-  { href: "/biens", label: "Biens", icon: Building2 },
-  { href: "/transactions", label: "Transactions", icon: ReceiptText },
-  { href: "/documents", label: "Documents", icon: FileText },
-  { href: "/comptabilite", label: "Comptabilité", icon: Calculator },
+  { href: "/dashboard", label: "Tableau de bord", icon: LayoutDashboard },
   { href: "/assistant", label: "Assistant", icon: Sparkles },
-  { href: "/mails", label: "Mails", icon: Mail }
+  { href: "/biens", label: "Biens", icon: Building2 },
+  { href: "/locataires", label: "Locataires", icon: Users },
+  { href: "/loyers", label: "Loyers", icon: ReceiptText },
+  { href: "/charges", label: "Charges", icon: Receipt },
+  { href: "/documents", label: "Documents", icon: FileText },
 ];
 
 export function AppShell({
